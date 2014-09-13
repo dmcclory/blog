@@ -1,17 +1,21 @@
 require 'sinatra'
+require 'redcarpet'
 
 get '/' do
-  "show topics?"
+  erb :index
 end
 
 get '/chron' do
-  "show a view sorted by date"
+  erb :chron
 end
 
 get '/topics' do
-  "show a view sorted by topic"
+  erb :topics
 end
 
 get '/blog/:article' do |article|
-  "would show: #{article}"
+  metadata, text = File.read("articles/" + article + '.md').split(/---/)[1..2]
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+  @contents = "<h3>" + markdown.render(text) + "</h3>"
+  erb :article
 end
