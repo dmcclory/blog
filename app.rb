@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'psych'
 require 'redcarpet'
 
 class Blog
@@ -12,10 +13,22 @@ class Blog
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
     markdown.render(text)
   end
+
+  def sorted_by_topic
+    articles = []
+    Dir[@articles_dir + "/*.md"].each do |article_path|
+      metadata = Psych.load(File.read(article_path).split(/---/)[1])
+      metadata["file"] = File.basename(article_path, ".md")
+      articles << metadata
+    end
+    articles.group_by { |article| article["category"] || "random" }
+  end
 end
 
 get '/' do
-  erb :index
+  blog = Blog.new
+  @articles = blog.sorted_by_topic
+  erb :topics
 end
 
 get '/chron' do
@@ -23,6 +36,8 @@ get '/chron' do
 end
 
 get '/topics' do
+  blog = Blog.new
+  @articles = blog.sorted_by_topic
   erb :topics
 end
 
