@@ -25,6 +25,12 @@ class Blog
     markdown.render(text)
   end
 
+  def metadata_for(article_id)
+    article_path = File.join(@articles_dir, article_id + ".md")
+    metadata, text = File.read(article_path).split(/---/)[1..2]
+    Psych.load(metadata)
+  end
+
   def sorted_by_topic
     @articles.group_by { |article| article["category"] || "random" }
   end
@@ -58,6 +64,7 @@ end
 
 get '/blog/:article' do |article_id|
   blog = Blog.new
+  @metadata = blog.metadata_for(article_id)
   @contents = "<h3>" + blog.markdown_for(article_id)+ "</h3>"
   erb :article
 end
