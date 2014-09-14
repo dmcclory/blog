@@ -1,0 +1,16 @@
+body {
+
+  font-family: "Fira Sans";
+  margin-top: 50px;
+  margin-left: 300px;
+  margin-right: 600px;
+  font-size: 120%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 120%;
+}
+
+li {
+  list-style: none;
+}
