@@ -1,7 +1,7 @@
 ---
 slug: first_post
 title: First Post!
-date: 9/13/14
+date: 2014-09-14
 category: random
 ---
 # this is my first article on the blog.

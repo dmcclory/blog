@@ -1,1 +1,10 @@
 <h2>show a view sorted by date</h2>
+
+<% @articles.each do |date, article_metadatas| %>
+  <h4><%= Date::MONTHNAMES[date.month]  %> <%= date.year %></h4>
+  <ul>
+  <% article_metadatas.each do |metadata| %>
+    <li><a href="blog/<%= metadata["file"] %>"><%= metadata["title"] %></a></li>
+  <% end %>
+  </ul>
+<% end %>

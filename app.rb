@@ -23,6 +23,17 @@ class Blog
     end
     articles.group_by { |article| article["category"] || "random" }
   end
+
+  def sorted_by_date
+    articles = []
+    Dir[@articles_dir + "/*.md"].each do |article_path|
+      metadata = Psych.load(File.read(article_path).split(/---/)[1])
+      metadata["file"] = File.basename(article_path, ".md")
+      articles << metadata
+    end
+    puts articles.inspect
+    articles.group_by { |article| Date.parse("#{article['date'].year}-#{article['date'].month}-01")}.sort { |a, b| b[0] <=> a[0] }
+  end
 end
 
 get '/' do
@@ -32,6 +43,8 @@ get '/' do
 end
 
 get '/chron' do
+  blog = Blog.new
+  @articles = blog.sorted_by_date
   erb :chron
 end
 
@@ -39,6 +52,10 @@ get '/topics' do
   blog = Blog.new
   @articles = blog.sorted_by_topic
   erb :topics
+end
+
+get '/about' do
+  erb :about
 end
 
 get '/blog/:article' do |article_id|
