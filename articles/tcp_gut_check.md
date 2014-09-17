@@ -1,6 +1,6 @@
 ---
 slug: tcp_gut_check
-title: Gut check: TCP socket timings
+title: "Gut check: TCP socket timings"
 date: 2014-09-17
 category: programming
 ---
