@@ -1,0 +1,12 @@
+---
+title: thought salad
+layout: layout.vto
+---
+
+<h1>welcome to the blog</h1>
+
+<ul>
+  {{for page of search.pages("type=article", "date=desc") }}
+  <li><a href="{{page.url}}">{{ page.title }} ( {{page.date |> date('DATE')}} )</a></li>
+  {{ /for }}
+</ul>

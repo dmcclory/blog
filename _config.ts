@@ -1,9 +1,11 @@
 import lume from "lume/mod.ts";
 import googleFonts from "lume/plugins/google_fonts.ts";
+import date from "lume/plugins/date.ts";
 
 const site = lume();
 
 site.add("/styles.css");
+site.use(date());
 
 site.use(googleFonts({
   cssFile: "styles.css",
