@@ -1,6 +1,10 @@
+/* google-fonts */
+
 body {
-  font-family: system-ui;
+  font-family: "EB Garamond"; serif; system-ui;
+  /* font-family: serif; system-ui; */
   max-width: 30rem;
   margin:2rem auto;
+  font-size: 1.5rem;
   background-color: #fefaff;
 }
